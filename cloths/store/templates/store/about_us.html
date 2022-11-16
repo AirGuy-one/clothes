@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1 align="center">This is page about us. <br>Till now, we do not write something, but we will fix it in the future.</h1>
+
+{% endblock %}
+
+{% block additionally %}
+    <div class="container">
+        <br>
+
+        {% for i in count_stuff %}
+            <p>Count of stuff that category is <b>{{ i.name }}</b> is {{ i.count }}</p>
+        {% endfor %}
+
+        <p>Average price of stuff is {{ avg_price }}$</p>
+
+        <p><b>Users:</b></p>
+        {% for user in users %}
+            <p>{{ user.username }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="container">
+        <h1 align="center">This page describe the thing that you have clicked</h1>
+        {% for thing in tasks %}
+            <h2>{{ thing.title }}</h2>
+        {% endfor %}
+    </div>
+{% endblock %}

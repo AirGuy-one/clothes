@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <p align="center" style="margin-bottom: 10px; font-size: 52px;">This page about <b>{{ cloth.title }}</b></p>
+    <img src="{{ cloth.photo.url }}" width="400px" height="318px" style="border: 3px solid #ffa500;">
+    <p style="font-size: 25px; margin-top: 10px;" class="title_class">Title: {{ cloth.title }}</p>
+    <p style="font-size: 25px;">Color: {{ cloth.color }}</p>
+    <p style="font-size: 25px;">Price: {{ cloth.price }}$</p>
+    <button class="btn btn-info"><a href="../../buy/{{ cloth.id }}" style="text-decoration: none; color: black;">Buy thing</a></button>
+    {% csrf_token %}
+    <form action="" method="post" style="margin-top: 25px;">
+        <button class="btn btn-danger"><a href="../../delete/{{ cloth.id }}" style="text-decoration: none; color: black;">delete</a></button>
+    </form>
+{% endblock %}
+
+{% block additionally %}
+    <br>
+{% endblock %}

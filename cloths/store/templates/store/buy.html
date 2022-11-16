@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h2 align="center">This is buy page</h2>
+    <img src="{{ cloth.photo.url }}" width="300px" height="238px" style="border: 3px solid #ffa500; margin-left: auto; margin-right: auto; display: block;">
+    <p style="font-size: 20px; margin-top: 10px;" align="center">This thing is called <b>{{ cloth.title }}</b>. Which color is <b>{{ cloth.color }}</b>. And it cost <b>{{ cloth.price }}</b>$.</p>
+
+    <div class="container p-0" style="width: 500px;">
+        <div class="card px-4">
+            <p class="h8 py-3">Форма оплаты</p>
+            <div class="row gx-3">
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">Ваше имя</p>
+                        <input class="form-control mb-3" type="text" placeholder="Enter your name">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">Номер карточки</p>
+                        <input class="form-control mb-3" type="text" placeholder="1234 5678 435678">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">Истечение срока карты</p>
+                        <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">CVV/CVC</p>
+                        <input class="form-control mb-3 pt-2 " type="password" placeholder="***">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary mb-3">Pay ${{ cloth.price }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additionally %}
+    <br>
+{% endblock %}

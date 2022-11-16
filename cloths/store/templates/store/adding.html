@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    <div class="container">
+        <h1>Adding the cloths</h1>
+        <div class="something" style="width: 400px;">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Enter the title</label><br>
+                {{ form.title }}<br>
+                <label>Enter the color</label><br>
+                {{ form.color }}<br>
+                <label>Enter the price</label><br>
+                {{ form.price }}<br>
+                <span>{{ error }}</span>
+                <div class="form-group">
+                    <label>Choose the category</label>
+                    <p>{{ form.cat }}</p>
+                </div>
+                {{ form.photo }}<br><br>
+                <button type="submit" class="btn btn-success">Добавить</button>
+            </form>
+        </div>
+    </div>
+    <br>
+{% endblock %}

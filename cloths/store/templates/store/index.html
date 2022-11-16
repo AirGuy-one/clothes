@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block just %}
+
+{% endblock %}
+
+{% block main %}
+    <main role="main">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Магазин одежды</h1>
+          <p class="lead text-muted">Какое-то описание нашей комапнии, которая производит одежду, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Перейти в корзину</a>
+            <a href="#" class="btn btn-secondary my-2">Еще какая-то кнопка</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            {% for i in page_obj %}
+              <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 315px; width: 100%; display: block;" src="{{ i.photo.url }}" data-holder-rendered="true">
+                  <div class="card-body">
+                    <h4>{{ i.title }}</h4>
+                    <div class="some" style="display: flex; justify-content: flex-end;"><p class="card-text" style="margin: 0 auto 0 0;">цвет: {{ i.color }} <p align="right">цена: {{ i.price }}$</p></p></div>
+                    <p class="card-text"></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary"><a href="about/{{ i.id }}" style="text-decoration:none; color: grey;">Посмотреть</a></button>
+                          <button type="button" class="btn btn-sm btn-outline-primary"><a href="buy/{{ i.id }}" style="text-decoration:none; color: blue;">Купить</a></button>
+                      </div>
+                      <small class="text-muted" style="text-align: center; margin-left: 10px;">{{ i.time_create }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+              <ul class="pagination">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                  </li>
+                {% endif %}
+                {% for p in page_obj.paginator.page_range %}
+                  {% if page_obj.number == p %}
+                    <li class="page-item active">
+                      <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                  {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+
+{% endblock %}
