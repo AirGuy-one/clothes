@@ -4,7 +4,7 @@
 
     {% if user.is_authenticated %}
         <h1>Выйти из личного кабинета</h1>
-        <p style="font-size: 22px;">Ваш никнейм: {{ user.username }} | {{ user.password }}</p>
+        <p style="font-size: 22px;">Ваш никнейм: {{ user.username }}</p>
         <p><button type="submit" class="btn" style="background: orangered; color: whitesmoke;"><a href="{% url 'logout_url' %}" style="text-decoration: none; color: whitesmoke;">выйти</a></button></p>
     {% else %}
         <h1>Войти в личный кабинет форма</h1>

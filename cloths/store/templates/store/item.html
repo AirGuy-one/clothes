@@ -8,9 +8,12 @@
     <p style="font-size: 25px;">Price: {{ cloth.price }}$</p>
     <button class="btn btn-info"><a href="../../buy/{{ cloth.id }}" style="text-decoration: none; color: black;">Buy thing</a></button>
     {% csrf_token %}
-    <form action="" method="post" style="margin-top: 25px;">
-        <button class="btn btn-danger"><a href="../../delete/{{ cloth.id }}" style="text-decoration: none; color: black;">delete</a></button>
-    </form>
+    {% if request.user.is_superuser %}
+        <form action="" method="post" style="margin-top: 25px;">
+            <button class="btn btn-danger"><a href="../../delete/{{ cloth.id }}" style="text-decoration: none; color: black;">delete</a></button>
+        </form>
+    {% endif %}
+
 {% endblock %}
 
 {% block additionally %}
