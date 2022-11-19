@@ -1,4 +1,4 @@
-from .models import ClothsData, CategoryData
+from .models import ClothsData, CategoryData, Like
 from django.forms import ModelForm, TextInput, ModelChoiceField, ChoiceField
 
 
@@ -35,6 +35,12 @@ class DeleteForm(ModelForm):
     class Meta:
         model = ClothsData
         fields = []
+
+
+class LikeForm(ModelForm):
+    class Meta:
+        model = Like
+        fields = ['user', 'post', 'value']
 
 
 

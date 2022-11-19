@@ -16,7 +16,8 @@ class ClothsData(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)
     cat = models.ForeignKey('CategoryData', on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, related_name='user_name')
+    like = models.ManyToManyField(User, verbose_name='Лайки', blank=True, related_name='like_name')
 
     objects = models.Manager()
     tmp = ClothsDataManager()
@@ -29,6 +30,17 @@ class ClothsData(models.Model):
         verbose_name_plural = 'Вещи'
 
 
+class Like(models.Model):
+    LIKE_CHOICES = (
+        ('Like', 'Like'),
+        ('Unlike', 'Unlike'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(ClothsData, on_delete=models.CASCADE, related_name='post_name')
+    value = models.CharField(choices=LIKE_CHOICES, default='Like', max_length=10)
+
+
 class CategoryData(models.Model):
     name = models.CharField(max_length=100, db_index=True)
 
@@ -38,6 +50,9 @@ class CategoryData(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+
+
 
     
 

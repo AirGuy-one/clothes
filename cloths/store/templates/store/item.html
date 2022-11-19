@@ -1,16 +1,30 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <p align="center" style="margin-bottom: 10px; font-size: 52px;">This page about <b>{{ cloth.title }}</b></p>
-    <img src="{{ cloth.photo.url }}" width="400px" height="318px" style="border: 3px solid #ffa500;">
-    <p style="font-size: 25px; margin-top: 10px;" class="title_class">Title: {{ cloth.title }}</p>
-    <p style="font-size: 25px;">Color: {{ cloth.color }}</p>
-    <p style="font-size: 25px;">Price: {{ cloth.price }}$</p>
-    <button class="btn btn-info"><a href="../../buy/{{ cloth.id }}" style="text-decoration: none; color: black;">Buy thing</a></button>
-    {% csrf_token %}
+    <p align="center" style="margin-bottom: 10px; font-size: 52px;">This page about <b>{{ item_stuff.title }}</b></p>
+    <img src="{{ item_stuff.photo.url }}" width="400px" height="318px" style="border: 3px solid #ffa500;">
+    <p style="font-size: 25px; margin-top: 10px;" class="title_class">Title: {{ item_stuff.title }}</p>
+    <p style="font-size: 25px;">Color: {{ item_stuff.color }}</p>
+    <p style="font-size: 25px;">Price: {{ item_stuff.price }}$</p>
+    <div style="display: flex; height: 48px;">
+        <button class="btn btn-info" style="margin-right: 50px;"><a href="../../buy/{{ item_stuff.id }}" style="text-decoration: none; color: black;">Buy thing</a></button>
+        {% csrf_token %}
+        {% if request.user.is_authenticated %}
+            <form action="" method="post" style="">
+                <p><button class="btn btn-danger">{{ count }} likes</button></p>
+            </form>
+        {% endif %}
+    </div>
+
+
+
+
+
+
     {% if request.user.is_superuser %}
         <form action="" method="post" style="margin-top: 25px;">
-            <button class="btn btn-danger"><a href="../../delete/{{ cloth.id }}" style="text-decoration: none; color: black;">delete</a></button>
+            <button class="btn btn-danger"><a href="../../delete/{{ item_stuff.id }}"
+                                              style="text-decoration: none; color: black;">delete</a></button>
         </form>
     {% endif %}
 

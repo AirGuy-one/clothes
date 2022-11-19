@@ -2,25 +2,34 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db.models import Count, Case, When, Sum, Avg
 from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import ClothsData, CategoryData
-from .forms import ClothsDataForm, DeleteForm
+from .models import ClothsData, CategoryData, Like
+from .forms import ClothsDataForm, DeleteForm, LikeForm
 
 
 def index(request):
-
     clothes_list = ClothsData.tmp.all().select_related('cat', 'user')
     paginator = Paginator(clothes_list, 6)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    likes = Like.objects.all()
+
+    data = []
+
+    for i in clothes_list:
+        data.append([len(Like.objects.filter(post=i)), i])
 
     context = {
         'title': 'Главная страница сайта',
         'clothes_list': clothes_list,
         'page_obj': page_obj,
+        'likes': likes,
+        'some': [1, 2, 3, 4],
+        'data': data
     }
 
     return render(request, 'store/index.html', context)
@@ -73,13 +82,27 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>This page is not found</h1>')
 
 
+@csrf_exempt
 def item(request, itemid):
-    cloth = ClothsData.objects.get(pk=itemid)
-    return render(request, 'store/item.html',
-                  {
-                      'cloth': cloth,
-                  }
-                  )
+    item_stuff = ClothsData.objects.get(pk=itemid)
+    user = request.user
+    tmp = Like.objects.filter(post=item_stuff)
+
+    if request.method == 'POST':
+        if not Like.objects.filter(user=user, post=item_stuff, value='Like').exists():
+            Like.objects.create(post=item_stuff, user=user, value='Like')
+        else:
+            Like.objects.filter(post=item_stuff, user=user, value='Like').delete()
+
+    count_of_likes = len(Like.objects.filter(post=item_stuff))
+
+    context = {
+        'item_stuff': item_stuff,
+        'tmp': tmp,
+        'count': count_of_likes
+    }
+
+    return render(request, 'store/item.html', context)
 
 
 def about_th(request):

@@ -21,20 +21,20 @@
         <div class="container">
 
           <div class="row">
-            {% for i in page_obj %}
+            {% for i in data %}
               <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                  <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 315px; width: 100%; display: block;" src="{{ i.photo.url }}" data-holder-rendered="true">
+                  <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 315px; width: 100%; display: block;" src="{{ i.1.photo.url }}" data-holder-rendered="true">
                   <div class="card-body">
-                    <h4>{{ i.title }}</h4>
-                    <div class="some" style="display: flex; justify-content: flex-end;"><p class="card-text" style="margin: 0 auto 0 0;">цвет: {{ i.color }} <p align="right">цена: {{ i.price }}$</p></p></div>
+                    <p style="font-size: 28px;"><b>{{ i.1.title }}</b> ({{ i.0 }} likes)</p>
+                    <div class="some" style="display: flex; justify-content: flex-end;"><p class="card-text" style="margin: 0 auto 0 0;">цвет: {{ i.1.color }} <p align="right">цена: {{ i.1.price }}$</p></p></div>
                     <p class="card-text"></p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary"><a href="about/{{ i.id }}" style="text-decoration:none; color: grey;">Посмотреть</a></button>
-                          <button type="button" class="btn btn-sm btn-outline-primary"><a href="buy/{{ i.id }}" style="text-decoration:none; color: blue;">Купить</a></button>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary"><a href="about/{{ i.1.id }}" style="text-decoration:none; color: grey;">Посмотреть</a></button>
+                          <button type="button" class="btn btn-sm btn-outline-primary"><a href="buy/{{ i.1.id }}" style="text-decoration:none; color: blue;">Купить</a></button>
                       </div>
-                      <small class="text-muted" style="text-align: center; margin-left: 10px;">{{ i.time_create }}</small>
+                      <small class="text-muted" style="text-align: center; margin-left: 10px;">{{ i.1.time_create }}</small>
                     </div>
                   </div>
                 </div>
@@ -66,6 +66,8 @@
                 {% endif %}
               </ul>
             </nav>
+
+
 
           </div>
         </div>
